@@ -2775,5 +2775,238 @@ addEventListener('DOMContentLoaded',()=>{applyLayout();updateGateVisual();});if(
   new MutationObserver(()=>{if(!document.getElementById('mobile-hud-menu-button'))ensure();}).observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
+
+<style id="mobile-v11-home-equip-style">
+@media (pointer:coarse){
+  /* Home screen: switch to a real mobile composition instead of a wide desktop hero. */
+  #start-menu-modal{align-items:flex-start!important;justify-content:center!important;overflow:auto!important;padding:calc(12px + env(safe-area-inset-top,0px)) 10px calc(14px + env(safe-area-inset-bottom,0px))!important;box-sizing:border-box!important;}
+  #start-menu-modal .hero-highlight-layer,
+  #start-menu-modal .hero-character-card{display:none!important;}
+  #start-menu-modal .cover-version-label{right:10px!important;left:auto!important;bottom:6px!important;font-size:10px!important;max-width:82vw!important;text-align:right!important;opacity:.7!important;}
+  #start-menu-modal .menu-box.mobile-home-box{
+    width:min(94vw,1180px)!important;max-height:86dvh!important;margin:0 auto!important;padding:14px 16px 12px!important;overflow:auto!important;
+    border-radius:22px!important;box-sizing:border-box!important;box-shadow:0 0 36px rgba(99,102,241,.28)!important;
+  }
+  #start-menu-modal .menu-box.mobile-home-box>h1{font-size:clamp(24px,4.6vw,34px)!important;letter-spacing:1.6px!important;line-height:1.15!important;margin-bottom:6px!important;}
+  #start-menu-modal .menu-box.mobile-home-box>p{font-size:11px!important;margin-bottom:14px!important;}
+  #start-menu-modal .mobile-home-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important;margin-top:4px!important;}
+  #start-menu-modal .mobile-home-grid>section{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;align-content:start!important;}
+  #start-menu-modal .mobile-home-grid>section>div{grid-column:1/-1!important;}
+  #start-menu-modal .mobile-home-grid>section>.menu-btn{margin:0!important;}
+  #start-menu-modal .mobile-home-grid>section{padding:12px!important;border-radius:16px!important;}
+  #start-menu-modal .mobile-home-grid .menu-btn{min-height:58px!important;padding:10px 12px!important;font-size:15px!important;line-height:1.15!important;border-radius:14px!important;}
+  #start-menu-modal #last-net-diag-box{margin-top:12px!important;padding:12px!important;}
+  #start-menu-modal #last-net-diag-box>div:last-child{flex-direction:column!important;}
+  #start-menu-modal #last-net-diag-box button{width:100%!important;min-height:40px!important;}
+  @media (max-width:760px){#start-menu-modal .mobile-home-grid{grid-template-columns:1fr!important;}#start-menu-modal .mobile-home-grid .menu-btn{min-height:46px!important;font-size:13px!important;}}
+
+  /* Mobile equipment bag: use the old click-to-open detail flow, but render the bag as a centered phone-friendly sheet. */
+  #mobile-equipment-sheet{width:min(96vw,720px)!important;height:min(86dvh,760px)!important;padding:12px!important;}
+  #mobile-equipment-sheet-body{padding-top:8px!important;overflow:hidden!important;}
+  #mobile-equipment-sheet-body #equip-bag-drawer.mobile-equipment-source,
+  #mobile-equipment-sheet-body #equip-bag-drawer{
+    position:relative!important;top:auto!important;left:auto!important;transform:none!important;display:flex!important;
+    width:100%!important;height:100%!important;max-height:none!important;padding:0!important;border:0!important;border-radius:0!important;
+    box-shadow:none!important;background:transparent!important;z-index:auto!important;
+  }
+  #mobile-equipment-sheet-body #equip-bag-drawer>div:first-child{padding-bottom:10px!important;margin-bottom:10px!important;}
+  #mobile-equipment-sheet-body #equip-bag-drawer>div:first-child button{min-width:42px!important;min-height:34px!important;}
+  #mobile-equipment-sheet-body #inventory-equips-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;padding-right:0!important;padding-bottom:8px!important;}
+  #mobile-equipment-sheet-body #equip-count-display{font-size:12px!important;margin-bottom:10px!important;}
+  #mobile-equipment-sheet-body #equip-bag-drawer>div:last-child{font-size:10px!important;margin-top:8px!important;}
+  #inventory-equips-grid .mobile-equip-card{
+    min-height:138px!important;padding:10px 8px!important;border-radius:16px!important;display:flex!important;flex-direction:column!important;
+    align-items:center!important;justify-content:flex-start!important;gap:7px!important;text-align:center!important;
+    background:linear-gradient(180deg,rgba(15,23,42,.96),rgba(30,41,59,.92))!important;border:2px solid #facc15!important;
+    box-shadow:0 0 20px rgba(56,189,248,.09)!important;overflow:hidden!important;box-sizing:border-box!important;
+  }
+  #inventory-equips-grid .mobile-equip-card[data-slot="wrist"]{border-color:#38bdf8!important;}
+  #inventory-equips-grid .mobile-equip-card[data-slot="knee"]{border-color:#a78bfa!important;}
+  #inventory-equips-grid .mobile-equip-card[data-slot="shoe"]{border-color:#22d3ee!important;}
+  #inventory-equips-grid .mobile-equip-card>*{max-width:100%;}
+  .mobile-equip-card-icon{
+    width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;flex:none;
+    background:radial-gradient(circle at 30% 25%,#334155 0%,#0f172a 70%);border:1.5px solid rgba(255,255,255,.14);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 18px rgba(0,0,0,.24);font-size:30px;
+  }
+  .mobile-equip-card-badges{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;}
+  .mobile-equip-chip{padding:2px 7px;border-radius:999px;font-size:10px;font-weight:900;line-height:1.2;background:#312e81;color:#e0e7ff;border:1px solid #6366f1;}
+  .mobile-equip-chip.tier-ssr{background:#4c1d95;color:#fde68a;border-color:#facc15;}
+  .mobile-equip-chip.tier-sr{background:#1d4ed8;color:#dbeafe;border-color:#38bdf8;}
+  .mobile-equip-chip.tier-r{background:#0f766e;color:#ccfbf1;border-color:#2dd4bf;}
+  .mobile-equip-chip.tier-n{background:#334155;color:#e2e8f0;border-color:#64748b;}
+  #inventory-equips-grid .mobile-equip-card img{max-width:62px!important;max-height:62px!important;object-fit:contain!important;}
+  #equip-detail-modal{padding:10px!important;box-sizing:border-box!important;}
+  #equip-detail-modal>div{width:min(94vw,560px)!important;max-height:84dvh!important;overflow:auto!important;padding:16px!important;}
+
+  /* Reward/result cards: give every gacha type a visible icon card on mobile. */
+  #nsf-mobile-reward-panel{width:min(95vw,840px)!important;padding:18px 14px 16px!important;}
+  #nsf-mobile-reward-title{font-size:20px!important;margin-bottom:14px!important;}
+  #nsf-mobile-reward-grid{gap:10px!important;}
+  .nsf-reward-card{padding:12px 10px!important;border-radius:18px!important;}
+  .nsf-reward-figure{width:82px;height:82px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:1000;box-shadow:0 10px 22px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden;}
+  .nsf-reward-figure img{width:100%;height:100%;object-fit:contain;display:block;}
+  .nsf-reward-figure.equip{background:linear-gradient(180deg,#4338ca,#1e1b4b);}
+  .nsf-reward-figure.cosmetic{background:linear-gradient(180deg,#ec4899,#7c3aed);}
+  .nsf-reward-figure.skill{background:linear-gradient(180deg,#0ea5e9,#1e3a8a);}
+  .nsf-reward-slotline{font-size:10px;font-weight:900;letter-spacing:.12em;color:#7dd3fc;margin-top:2px;}
+  #nsf-mobile-reward-close{min-height:48px!important;font-size:18px!important;}
+}
+</style>
+<script id="mobile-v11-home-gacha-equip-runtime">
+(()=>{
+  'use strict';
+  const isTouch=matchMedia('(pointer:coarse)').matches||navigator.maxTouchPoints>0;
+  if(!isTouch)return;
+
+  const SLOT_META={wrist:{icon:'🧤',label:'WRIST'},knee:{icon:'🦵',label:'KNEE'},shoe:{icon:'👟',label:'SHOE'},default:{icon:'🎒',label:'EQUIP'}};
+  function detectTier(text=''){const t=(text||'').toUpperCase();if(t.includes('SSR'))return'SSR';if(t.includes('SR'))return'SR';if(t.includes('[R]')||t.includes(' R '))return'R';return'N';}
+  function detectSlot(text=''){const t=(text||'').toLowerCase(); if(/wrist|腕|手套|護腕/.test(t))return'wrist'; if(/knee|膝|護膝/.test(t))return'knee'; if(/shoe|靴|鞋/.test(t))return'shoe'; return'default';}
+  function firstText(node){return ((node&&node.textContent)||'').replace(/\s+/g,' ').trim();}
+  function ensureHomeMobile(){
+    const start=document.getElementById('start-menu-modal'); if(!start)return;
+    const box=start.querySelector('.menu-box'); if(box) box.classList.add('mobile-home-box');
+    const grid=box?.querySelector('div[style*="display:grid"]'); if(grid) grid.classList.add('mobile-home-grid');
+  }
+
+  function decorateEquipBag(){
+    const grid=document.getElementById('inventory-equips-grid'); if(!grid) return;
+    [...grid.children].forEach(card=>{
+      if(card.dataset.mobileDecorated==='1') return;
+      const text=firstText(card);
+      const slot=detectSlot(text), meta=SLOT_META[slot]||SLOT_META.default, tier=detectTier(text);
+      card.dataset.mobileDecorated='1';
+      card.dataset.slot=slot;
+      card.classList.add('mobile-equip-card');
+      if(!card.querySelector('.mobile-equip-card-icon')){
+        const visual=document.createElement('div');
+        visual.className='mobile-equip-card-icon';
+        const img=card.querySelector('img');
+        if(img){ visual.appendChild(img.cloneNode(true)); }
+        else visual.textContent=meta.icon;
+        card.prepend(visual);
+      }
+      if(!card.querySelector('.mobile-equip-card-badges')){
+        const badges=document.createElement('div'); badges.className='mobile-equip-card-badges';
+        const tierChip=document.createElement('div'); tierChip.className='mobile-equip-chip tier-'+tier.toLowerCase(); tierChip.textContent=tier;
+        const slotChip=document.createElement('div'); slotChip.className='mobile-equip-chip'; slotChip.textContent=meta.label;
+        badges.append(tierChip,slotChip);
+        const afterIcon=card.querySelector('.mobile-equip-card-icon');
+        if(afterIcon?.nextSibling) card.insertBefore(badges, afterIcon.nextSibling); else card.appendChild(badges);
+      }
+    });
+  }
+
+  function rewireMobileBag(){
+    const drawer=document.getElementById('equip-bag-drawer');
+    const overlay=document.getElementById('mobile-equipment-overlay');
+    const closeBtn=document.getElementById('mobile-equipment-close');
+    if(drawer) drawer.classList.add('mobile-equipment-source');
+    if(closeBtn && !closeBtn.dataset.mobileBound){
+      closeBtn.dataset.mobileBound='1';
+      closeBtn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation(); window.closeEquipBag?.();});
+    }
+    const shortcut=document.querySelector('.mobile-open-equipment');
+    if(shortcut && !shortcut.dataset.mobileBound){
+      shortcut.dataset.mobileBound='1';
+      shortcut.addEventListener('click',e=>{e.preventDefault();e.stopPropagation(); window.openEquipBag?.();});
+    }
+    window.openEquipBag=function(){
+      if(window.NSF_MOBILE_EQUIPMENT&&typeof window.NSF_MOBILE_EQUIPMENT.open==='function') window.NSF_MOBILE_EQUIPMENT.open();
+      if(drawer) drawer.style.display='flex';
+      if(overlay) overlay.style.display='flex';
+      decorateEquipBag();
+    };
+    window.closeEquipBag=function(){
+      if(drawer) drawer.style.display='none';
+      if(window.NSF_MOBILE_EQUIPMENT&&typeof window.NSF_MOBILE_EQUIPMENT.close==='function') window.NSF_MOBILE_EQUIPMENT.close();
+      else if(overlay) overlay.style.display='none';
+    };
+  }
+
+  function imageSrcFromItem(item){
+    if(!item||typeof item!=='object')return'';
+    for(const key of ['icon','iconUrl','image','img','asset','art','sprite','portrait']){
+      const v=item[key]; if(typeof v==='string'&&v.trim()) return v.trim();
+    }
+    return '';
+  }
+  function visualFor(kind,item){
+    const src=imageSrcFromItem(item);
+    if(src) return `<div class="nsf-reward-figure ${kind}"><img src="${src}" alt=""></div>`;
+    if(kind==='equip'){
+      const slot=(item?.slot||'default').toLowerCase(); const meta=SLOT_META[slot]||SLOT_META.default;
+      return `<div class="nsf-reward-figure equip">${meta.icon}</div><div class="nsf-reward-slotline">${meta.label}</div>`;
+    }
+    if(kind==='cosmetic'){
+      const id=((item?.id)||'').toLowerCase();
+      const icon=id.includes('crown')?'👑':(id.includes('glass')||id.includes('shades'))?'🕶️':(id.includes('mask'))?'🎭':(id.includes('hat')||item?.category==='hats')?'🎩':'✨';
+      return `<div class="nsf-reward-figure cosmetic">${icon}</div>`;
+    }
+    const t=((item?.type||'')+' '+(item?.name||'')).toUpperCase();
+    const icon=t.includes('BLOCK')?'🧱':t.includes('SERVE')?'🏐':(t.includes('SET')||t.includes('二傳'))?'🎯':(t.includes('DEF')||t.includes('RECEIVE')||t.includes('DIG'))?'🛡️':(t.includes('SPEED')||t.includes('STEP')||t.includes('FLOW')||t.includes('雷'))?'⚡':'✦';
+    return `<div class="nsf-reward-figure skill">${icon}</div>`;
+  }
+  function ensureRewardShell(){
+    let layer=document.getElementById('nsf-mobile-reward-layer');
+    if(layer) return layer;
+    layer=document.createElement('div'); layer.id='nsf-mobile-reward-layer';
+    const panel=document.createElement('div'); panel.id='nsf-mobile-reward-panel';
+    const title=document.createElement('div'); title.id='nsf-mobile-reward-title';
+    const grid=document.createElement('div'); grid.id='nsf-mobile-reward-grid';
+    const close=document.createElement('button'); close.id='nsf-mobile-reward-close'; close.textContent='全部收入'; close.onclick=()=>layer.style.display='none';
+    panel.append(title,grid,close); layer.append(panel); document.body.append(layer); return layer;
+  }
+  function showRewards(kind,items,isTen){
+    const layer=ensureRewardShell();
+    const title=layer.querySelector('#nsf-mobile-reward-title');
+    const grid=layer.querySelector('#nsf-mobile-reward-grid');
+    const label={equip:'裝備轉蛋成果',cosmetic:'時裝轉蛋成果',skill:'技能研習成果'}[kind]||'獲得成果';
+    title.textContent=`🎉 ${isTen?'十連':''}${label}`;
+    grid.innerHTML='';
+    grid.style.display='grid';
+    grid.style.gridTemplateColumns=`repeat(${items.length===1?1:Math.min(5,items.length)}, minmax(0,1fr))`;
+    items.forEach(item=>{
+      const card=document.createElement('div');
+      const tier=((item&&item.tier)||'R').toLowerCase();
+      card.className='nsf-reward-card '+tier;
+      let badge=(item&&item.tier)||'';
+      let name=(item&&item.name)||'獲得物品';
+      let desc='';
+      if(kind==='equip') desc=`${((item&&item.slot)||'equip').toUpperCase()} · 主屬性 +${item?.baseRoll??''}`;
+      else if(kind==='cosmetic'){ badge=item?.category==='hats'?'頭飾':'臉飾'; desc=item?.desc||'已加入試衣化妝間'; }
+      else { badge=item?.type||'SKILL'; desc=item?.desc||'已加入技能庫'; }
+      card.innerHTML=`${visualFor(kind,item)}<div class="nsf-reward-tier">${badge}</div><div class="nsf-reward-name">${name}</div><div class="nsf-reward-desc">${desc}</div>`;
+      grid.appendChild(card);
+    });
+    layer.style.display='flex';
+  }
+  window.NSFMobileRewards=showRewards;
+  window.triggerEquipGacha=function(isTen=false){
+    const cost=isTen?1350:150; if(userCoins<cost){alert(`排球金幣不足 ${cost}！`);return;} userCoins-=cost; updateCoinHUD(); playSound('coin');
+    const results=[]; for(let i=0;i<(isTen?10:1);i++) results.push(rollSingleEquipment()); saveGameData(); showRewards('equip',results,isTen); renderLocker();
+  };
+  window.triggerCosmeticGacha=function(isTen=false){
+    const cost=isTen?450:50; if(userCoins<cost){alert(`排球金幣不足 ${cost}！`);return;}
+    const available=[]; ['hats','faces'].forEach(cat=>COSMETICS_DB[cat].forEach(item=>{ if(!item.id.endsWith('_none')&&item.source!=='achievement'&&!UNLOCKED_COSMETICS[cat].includes(item.id)) available.push({...item,category:cat}); }));
+    if(!available.length){ alert('🎉 服裝獎池已全數抽空！'); return; }
+    userCoins-=cost; updateCoinHUD(); const n=isTen?Math.min(10,available.length):1, results=[];
+    for(let i=0;i<n;i++){ const idx=Math.floor(Math.random()*available.length), it=available.splice(idx,1)[0]; UNLOCKED_COSMETICS[it.category].push(it.id); results.push(it); }
+    saveGameData(); playSound('coin'); showRewards('cosmetic',results,isTen);
+  };
+  window.triggerSkillGacha=function(isTen=false){
+    const cost=isTen?2350:250; if(userCoins<cost){alert(`排球金幣不足 ${cost}！`);return;}
+    const available=SKILL_POOL.filter(sk=>!UNLOCKED_SKILLS.includes(sk.id)); if(!available.length){ alert('⚡ 所有戰術技能皆已領悟研習完畢！'); return; }
+    userCoins-=cost; updateCoinHUD(); const n=isTen?Math.min(10,available.length):1, results=[];
+    for(let i=0;i<n;i++){ const idx=Math.floor(Math.random()*available.length), sk=available.splice(idx,1)[0]; UNLOCKED_SKILLS.push(sk.id); results.push(sk); }
+    saveGameData(); playSound('perfect_spike'); showRewards('skill',results,isTen);
+  };
+
+  const bagObserver=new MutationObserver(()=>{decorateEquipBag();rewireMobileBag();ensureHomeMobile();});
+  function boot(){ ensureHomeMobile(); decorateEquipBag(); rewireMobileBag(); const grid=document.getElementById('inventory-equips-grid'); if(grid) bagObserver.observe(grid,{childList:true,subtree:true}); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot,{once:true}); else boot();
+})();
+</script>
+
 </body>
 </html>
